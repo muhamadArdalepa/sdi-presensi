@@ -14,9 +14,13 @@ class CreateUserCredentialsTable extends Migration
     public function up()
     {
         Schema::create('user_credentials', function (Blueprint $table) {
-            $table->foreignId('user_id');
+            $table->foreignId('user_id') 
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('role',['Admin','Pegawai'])->default('Pegawai');
             $table->timestamp('email_verified_at');
             $table->timestamps();
         });

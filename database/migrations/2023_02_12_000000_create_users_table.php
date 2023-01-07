@@ -17,9 +17,20 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('nama');
             $table->string('nip');
-            $table->foreignId('jabatan_id');
-            $table->foreignId('cabang_id');
+            $table->date('tgl_lahir')->nullable();
+            $table->tinyInteger('j_kelamin')->nullable();
+            $table->string('alamat')->nullable();
+            $table->string('no_telepon')->nullable();
+            $table->foreignId('jabatan_id')->nullable() 
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+            $table->foreignId('cabang_id')->nullable() 
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->timestamps();
+
         });
     }
 
