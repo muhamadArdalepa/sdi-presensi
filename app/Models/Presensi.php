@@ -14,4 +14,9 @@ class Presensi extends Model
     {
         return $this->belongsTo('App\Models\Presensi','user_id','id');
     }
+
+    public function presensi_detail()
+    {
+        return $this->hasOne('App\Models\PresensiDetail','user_id');
+    }
 }

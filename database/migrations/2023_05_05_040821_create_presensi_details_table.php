@@ -14,7 +14,10 @@ class CreatePresensiDetailsTable extends Migration
     public function up()
     {
         Schema::create('presensi_details', function (Blueprint $table) {
-            $table->foreignId('presensi_id');
+            $table->foreignId('presensi_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->string('foto');
             $table->string('lokasi');
             $table->string('ket');
