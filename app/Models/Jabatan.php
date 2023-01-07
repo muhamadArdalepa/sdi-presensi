@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Jabatan extends Model
 {
     use HasFactory;
+    public $table = 'jabatan';
+
+    protected $fillable =[
+        'jabatan'
+    ];
+
+    public function user()
+    {
+     return $this->hasMany('App\Models\user', 'jabatan_id');
+    }
 }
