@@ -21,6 +21,7 @@ class CreateUserCredentialsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->enum('role',['Admin','Pegawai'])->default('Pegawai');
+            $table->varchar()
             $table->timestamp('email_verified_at');
             $table->timestamps();
         });
