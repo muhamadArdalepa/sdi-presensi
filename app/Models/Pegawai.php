@@ -19,4 +19,8 @@ class Pegawai extends Model
     {
         return $this->belongsTo(Cabang::class);
     }
+    public function task(){
+
+        return $this->belongsToMany(Task::class)->withTimestamps();
+    }
 }
