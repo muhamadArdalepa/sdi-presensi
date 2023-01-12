@@ -5,8 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MenuAdminController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PegawaiController;
-use App\Http\Controllers\DataAbsenController;
-
 
 // home
 Route::get('/', function () {
@@ -31,12 +29,3 @@ Route::prefix('resource')->group(function () {
     Route::resource('/pegawai', PegawaiController::class)->middleware('auth');
     Route::resource('/admin', AdminController::class)->middleware('auth');
 });
-
-//MenuAbsensi
-Route::get('AbsensiManual', [DataAbsenController::class, 'index'])->name('AbsensiManual');
-Route::get('AlpaIzin', [DataAbsenController::class, 'izin'])->name('AlpaIzin');
-
-//MenuRekap
-Route::get('DataAbsensi', [DataAbsenController::class,'dataabsensi'])->name('DataAbsensi');
-Route::get('DataAlpaIzin', [DataAbsenController::class, 'dataalpaizin'])->name('DataAlpaIzin');
-Route::get('DataTelat', [DataAbsenController::class, 'datatelat'])->name('DataTelat');

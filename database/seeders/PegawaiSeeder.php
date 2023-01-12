@@ -17,14 +17,14 @@ class PegawaiSeeder extends Seeder
         DB::table('pegawais')->insert(
             [
                 'user_id' => 1,
-                // 'nama' => 'Example Name',
+                'nama' => 'Example Name',
                 'nip' => '123456789012345678'
             ]
         );
         DB::table('pegawais')->insert(
             [
                 'user_id' => 2,
-                // 'nama' => 'Pegawai Name',
+                'nama' => 'Pegawai Name',
                 'nip' => '123456789012345679'
             ]
         );

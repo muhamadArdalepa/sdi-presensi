@@ -111,16 +111,16 @@
                 <ul class="collapse flex-column ms-1" style="list-style: none; margin-top:-10px;" id="collapseThree"
                     data-bs-parent="#menu">
                     <li style="margin-left: -30px;">
-                        <a href="/AbsensiManual" class="nav-link">
+                        <a href="#" class="nav-link">
                             <div
                                 class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                                 <i class="ni ni-badge text-info text-sm opacity-10"></i>
                             </div>
-                            <span class="d-none nav-link d-sm-inline">Absen Manual</span>
+                            <span class="d-none nav-link d-sm-inline">Absensi Manual</span>
                         </a>
                     </li>
                     <li style="margin-left: -30px; margin-top:-20px;">
-                        <a href="/AlpaIzin" class="nav-link">
+                        <a href="#" class="nav-link">
                             <div
                                 class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                                 <i class="ni ni-badge text-info text-sm opacity-10"></i>
@@ -143,7 +143,7 @@
                 <ul class="collapse flex-column ms-1" style="list-style: none; margin-top:-10px;" id="collapseFour"
                     data-bs-parent="#menu">
                     <li style="margin-left: -30px;">
-                        <a href="/DataAbsensi" class="nav-link">
+                        <a href="#" class="nav-link">
                             <div
                                 class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                                 <i class="ni ni-archive-2 text-info text-sm opacity-10"></i>
@@ -152,21 +152,30 @@
                         </a>
                     </li>
                     <li style="margin-left: -30px; margin-top:-20px;">
-                        <a href="/DataTelat" class="nav-link">
+                        <a href="#" class="nav-link">
                             <div
                                 class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                                 <i class="ni ni-archive-2 text-info text-sm opacity-10"></i>
                             </div>
-                            <span class="d-none nav-link d-sm-inline">Data Pegawai Telat</span>
+                            <span class="d-none nav-link d-sm-inline">Data pegawai telat</span>
                         </a>
                     </li>
                     <li style="margin-left: -30px; margin-top:-20px;">
-                        <a href="/DataAlpaIzin" class="nav-link">
+                        <a href="#" class="nav-link">
                             <div
                                 class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                                 <i class="ni ni-archive-2 text-info text-sm opacity-10"></i>
                             </div>
-                            <span class="d-none nav-link d-sm-inline">Data Pegawai Alpa/Izin</span>
+                            <span class="d-none nav-link d-sm-inline">Data pegawai tidak absen</span>
+                        </a>
+                    </li>
+                    <li style="margin-left: -30px; margin-top:-20px;">
+                        <a href="#" class="nav-link">
+                            <div
+                                class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
+                                <i class="ni ni-archive-2 text-info text-sm opacity-10"></i>
+                            </div>
+                            <span class="d-none nav-link d-sm-inline">Data pegawai alfa/izin</span>
                         </a>
                     </li>
                 </ul>
