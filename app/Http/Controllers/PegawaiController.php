@@ -55,7 +55,7 @@ class PegawaiController extends Controller
             ]);
             return response()->json([
                 'status' => 200,
-                'message' => 'New Pegwai successfully added',
+                'message' => 'New Pegawai successfully added',
             ]);
         }
     }

@@ -33,6 +33,7 @@ Route::prefix('resource')->group(function () {
     Route::resource('/admin', AdminController::class)->middleware('auth');
 });
 
+Route::group(['middleware' => ['admin:admin']], function(){
 //data absen 
 Route::get('absensiManual', [DataAbsenController::class, 'index'])->name('absensiManual');
 Route::get('alpaIzin',      [DataAbsenController::class, 'izin'])->name('alpaIzin');
@@ -41,7 +42,7 @@ Route::get('alpaIzin',      [DataAbsenController::class, 'izin'])->name('alpaIzi
 Route::get('dataAbsensi',     [DataAbsenController::class, 'dataabsensi'])->name('dataAbsensi');
 Route::get('dataAlpaIzin',  [DataAbsenController::class, 'dataalpaizin'])->name('dataAlpaIzin');
 Route::get('datatelat',     [DataAbsenController::class, 'datatelat'])->name('datatelat');
-
+});
 
 
 //Route Profil

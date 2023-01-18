@@ -75,9 +75,9 @@
                                                 Aksi</th> //di aksi ada info sama edit data
                                         </tr>
                                     </thead>
-                                   
+                                    
                                 </table>
-                           
+                               
                             </div>
                         </div>
                     </div>

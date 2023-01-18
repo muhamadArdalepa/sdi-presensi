@@ -39,7 +39,7 @@ class PresensiController extends Controller
         $detail->ket = 'Some Keterangan';
         $detail->save();
 
-        session()->flash('pesan', "Presensi {$request->nama} berhasil");
+        session()->flash('pesan', "Presensi berhasil");
     return redirect(route('pegawai.presensi'));
     }
     
