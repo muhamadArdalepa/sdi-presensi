@@ -12,6 +12,8 @@
         @include('template.navbar')
         {{-- end navbar --}}
 
+        {{----------------------------------------- V I E W -----------------------------------------}}
+
         <!--start container-->
         <div class="container-fluid py-4">
 
@@ -26,8 +28,7 @@
                     </div>
                     @endif
                 </div>
-
-
+                
                 <div class="col-12">
                     @if(session()->has('pesan'))
                     <div class="alert alert-success" style="color:white;">
@@ -88,12 +89,13 @@
                                                     class="text-secondary text-xs font-weight-bold">{{$p->role}}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <button id="editAdmin" onclick="editForm('/resource/admin/{{$p->id}}')"
-                                                    class="btn btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#addAdminModal">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button id="resetAdmin" onclick="resetForm({{$p->id}})"
+                                               <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target=" #editAdmin-{{$p->id}}">
+                                                    <button class="btn btn-warning">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                </a>
+                                                {{-- <button id="resetAdmin" onclick="resetForm({{$p->id}})"
                                                     class="btn btn-secondary" data-bs-toggle="modal"
                                                     data-bs-target="#addAdminModal">
                                                     <i class="fa fa-key"></i>
@@ -102,7 +104,7 @@
                                                     onclick="deleteForm('/resource/admin/{{$p->id}}')"
                                                     class="btn btn-danger">
                                                     <i class="fa fa-trash"></i>
-                                                </button>
+                                                </button> --}}
                                             </td>
                                         </tr>
                                         @endforeach
@@ -129,7 +131,12 @@
             </div>
         </div>
 
-        {{-- modal --}}
+        {{----------------------------------------- E N D  - V I E W -----------------------------------------}}
+
+
+        
+        {{---------------------------------------- A D D ----------------------------------------}}
+
         <div class="modal fade" id="addAdminModal" aria-labelledby="addAdminLabel" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
@@ -139,43 +146,85 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <form action="{{ route('admin.createAdmin') }}" method="POST">
+                        @csrf
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama Lengkap</label>
+                                <input type="text" name="nama" id="nama" class="form-control" autofocus>
+                                <div id="nama-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <input type="hidden" name="id" id="id" value="">
-                            <input type="hidden" name="id" id="idReset" value="">
-                            <label for="nama" class="form-label">Nama Lengkap</label>
-                            <input type="text" name="nama" id="nama" class="form-control" autofocus>
-                            <div id="nama-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" name="email" id="email" class="form-control">
+                                <div id="email-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" name="email" id="email" class="form-control">
-                            <div id="email-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <input type="hidden" name="role" id="role" class="form-control">
+                            
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                                <div id="password-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" id="password" class="form-control">
-                            <div id="password-feedback" class="invalid-feedback"></div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation"
-                                class="form-control">
-                            <div id="password_confirmation-feedback" class="invalid-feedback"></div>
-                        </div>
-
-                        <div style="float: right">
-                            <button id="save" type="button" class="btn btn-primary mb-2">Daftar</button>
-                        </div>
-
+                            <div style="float: right">
+                                <button type="submit" class="btn btn-primary mb-2">Daftar</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- end modal --}}
+
+        {{----------------------------------- E N D - A D D  -----------------------------------}}
+        
+
+        {{-------------------------------------- E D I T --------------------------------------}}
+        
+        @foreach($admin as $p)
+        <div class="modal fade" id="editAdmin-{{$p->id}}" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Data Admin</h5>
+                        <button class="btn-close bg-danger" type="button"
+                            data-bs-dismiss="modal" aria-label="Close">
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="admin/update/{{ $p->id }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama</label>
+                                <input type="nama" name="nama" id="nama"
+                                    value="{{ old('nama') ?? $p->nama }}"
+                                    class="form-control @error('nama') is-invalid @enderror">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email"
+                                    value="{{ old('email') ?? $p->email }}"
+                                    class="form-control @error('email') is-invalid @enderror">
+                            </div>
+                            
+                            <div style="float: right">
+                                <button type="submit"
+                                    class="btn btn-primary mb-2">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+
+        {{----------------------------------- E N D - E D I T  -----------------------------------}}
+        {{-- end modal edit data --}}
+
+
         <!--end container-->
         {{-- footer --}}
         @include('template.footer')
@@ -185,7 +234,6 @@
     <!--   Core JS Files   -->
     @include('template.script')
 
-    <script src="/js/admin.js"></script>
 </body>
 
 </html>

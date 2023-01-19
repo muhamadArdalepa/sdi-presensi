@@ -81,7 +81,7 @@
                 <ul class="collapse flex-column ms-1" style="list-style: none; margin-top:-10px;" id="collapseOne"
                     data-bs-parent="#menu">
                     <li style="margin-left: -30px">
-                        <a href="/admin/admin" class="nav-link">
+                        <a href="/admin" class="nav-link">
                             <div
                                 class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                                 <i class="ni ni-app text-info text-sm opacity-10"></i>

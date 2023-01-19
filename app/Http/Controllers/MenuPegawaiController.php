@@ -78,7 +78,13 @@ class MenuPegawaiController extends Controller
 
     public function task(Request $request)
     {
-        $title = 'Task';
+        $title = 'Task Harian';
         return view('pegawai.task', compact('title'));
     }
+
+    public function taskCreate(Request $request)
+    {
+        return view('pegawai.task', compact('title'));
+    }
+    
 }
