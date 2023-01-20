@@ -75,9 +75,7 @@
                                                 Aksi</th> //di aksi ada info sama edit data
                                         </tr>
                                     </thead>
-                                    
                                 </table>
-                               
                             </div>
                         </div>
                     </div>
@@ -85,7 +83,6 @@
             </div>
         </div>
 
-      
         <!--end container-->
         {{-- footer --}}
         @include('template.footer')
