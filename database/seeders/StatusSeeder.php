@@ -17,28 +17,28 @@ class StatusSeeder extends Seeder
         DB::table('statuses')->insert(
             [
                 'id' => 1,
-                'status' => 'Hadir'
+                'keterangan' => 'Hadir'
                 
             ]
         );
         DB::table('statuses')->insert(
             [
                 'id' => 2,
-                'status' => 'Izin'
+                'keterangan' => 'Izin'
                 
             ]
         );
         DB::table('statuses')->insert(
             [
                 'id' => 3,
-                'status' => 'Sakit'
+                'keterangan' => 'Sakit'
                 
             ]
         );
         DB::table('statuses')->insert(
             [
                 'id' => 4,
-                'status' => 'Alpa'
+                'keterangan' => 'Alpa'
                 
             ],
         );
