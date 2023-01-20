@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             JabatanSeeder::class,
             UserSeeder::class,
             PegawaiSeeder::class,
+            StatusSeeder::class,
         ]);    
 
         // \App\Models\User::factory(10)->create();

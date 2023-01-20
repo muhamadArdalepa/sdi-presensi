@@ -54,6 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('change-password',      [MenuPegawaiController::class, 'changePassword'])->name('ChangePw');
 });
 
+// Route::group(['middleware' => ['pegawai']], function(){
 //Route MenuPegawai
 Route::get('presensi',             [MenuPegawaiController::class, 'presensi'])->name('pegawai.presensi');
 Route::get('task',                 [MenuPegawaiController::class, 'task'])->name('pegawai.task');
@@ -61,3 +62,4 @@ Route::get('task',                 [MenuPegawaiController::class, 'task'])->name
 
 //Presensi
 Route::post('presensi',             PresensiController::class)->name('presensi.store');
+// });

@@ -43,4 +43,24 @@ class PresensiController extends Controller
     return redirect(route('pegawai.presensi'));
     }
     
+
+    // public function store(Request $request)
+    // {
+    //     $validateData = $request->validate([
+    //         'status' => '',
+    //         'tgl_presensi' => '',
+    //         'jam_masuk' => '',
+      
+    //     ]);
+
+    //     Presensi::create($validateData);
+    //     return redirect()->route('presensi.index');
+    // }
+
+    // public function show($presensi)
+    // {
+    //     $result = Presensi::findOrFail($presensi);
+    //     return view('show',['presensi' => $result]);
+    // }
+
 }
