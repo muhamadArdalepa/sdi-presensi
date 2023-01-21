@@ -320,8 +320,8 @@ class ComposerStaticInitb6cc75b0dc495f31c9b66e5f7b26f1db
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-message/src',
-            1 => __DIR__ . '/..' . '/psr/http-factory/src',
+            0 => __DIR__ . '/..' . '/psr/http-factory/src',
+            1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -510,6 +510,7 @@ class ComposerStaticInitb6cc75b0dc495f31c9b66e5f7b26f1db
         'App\\Http\\Controllers\\MenuAdminController' => __DIR__ . '/../..' . '/app/Http/Controllers/MenuAdminController.php',
         'App\\Http\\Controllers\\MenuPegawaiController' => __DIR__ . '/../..' . '/app/Http/Controllers/MenuPegawaiController.php',
         'App\\Http\\Controllers\\PegawaiController' => __DIR__ . '/../..' . '/app/Http/Controllers/PegawaiController.php',
+        'App\\Http\\Controllers\\PresensiController' => __DIR__ . '/../..' . '/app/Http/Controllers/PresensiController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',

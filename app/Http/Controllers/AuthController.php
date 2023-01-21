@@ -18,12 +18,16 @@ class AuthController extends Controller
             'title' => 'Login'
         ]);
     }
+
+
     public function create()
     {
         return view('auth.daftar')->with([
             'title' => 'Daftar'
         ]);
     }
+
+
     public function store(Request $request)
     {
         $validateData = $request->validate([
@@ -47,6 +51,8 @@ class AuthController extends Controller
         $request->session()->flash('success', "Sign Up Success! Please Login");
         return redirect()->route('auth.login');
     }
+
+
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -60,6 +66,7 @@ class AuthController extends Controller
         }
         return back()->with('error', 'Email atau Password Salah')->onlyInput('email');
     }
+    
 
     public function logout()
     {

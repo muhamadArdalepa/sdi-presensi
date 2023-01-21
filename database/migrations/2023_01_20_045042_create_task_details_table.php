@@ -20,7 +20,7 @@ class CreateTaskDetailsTable extends Migration
             ->onDelete('cascade');
             $table->datetime('waktu_mulai');
             $table->datetime('waktu_selesai');
-            $table->string('ket');
+            $table->enum('ket', ['Harian', 'Mingguan'])->default('Harian');
             $table->timestamps();
         });
     }

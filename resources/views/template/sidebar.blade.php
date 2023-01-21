@@ -90,7 +90,7 @@
                         </a>
                     </li>
                     <li style="margin-left: -30px; margin-top:-20px;">
-                        <a href="/admin/pegawai" class="nav-link">
+                        <a href="/pegawai" class="nav-link">
                             <div
                                 class="icon icon-shape icon-sm border-radius-md text-center d-flex align-items-center justify-content-center">
                                 <i class="ni ni-app text-info text-sm opacity-10"></i>

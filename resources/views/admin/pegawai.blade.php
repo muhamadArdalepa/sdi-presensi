@@ -12,6 +12,8 @@
         @include('template.navbar')
         {{-- end navbar --}}
 
+        {{--------------------------------------------- V I E W ---------------------------------------------}}
+
         <!--start container-->
         <div class="container-fluid py-4">
 
@@ -87,34 +89,29 @@
                                                 <span class="text-xs font-weight-bold mb-0">{{$p->nama??'N/A'}}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span
-                                                    class="text-secondary text-xs font-weight-bold">{{$p->pegawai->jabatan_id
+                                                <span class="text-secondary text-xs font-weight-bold">{{$p->pegawai->jabatan_id
                                                     == null
                                                     ?'N/A':$jabatan->find($p->pegawai->jabatan_id)->jabatan}}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <span
-                                                    class="text-secondary text-xs font-weight-bold">{{$p->pegawai->cabang_id
+                                                <span class="text-secondary text-xs font-weight-bold">{{$p->pegawai->cabang_id
                                                     == null
                                                     ?'N/A':$cabang->find($p->pegawai->cabang_id)->cabang}}</span>
                                             </td>
                                             <td class="align-middle text-center">
-                                                <button id="editPegawai"
-                                                    onclick="editForm('/resource/pegawai/{{$p->id}}')"
-                                                    class="btn btn-warning" data-bs-toggle="modal"
-                                                    data-bs-target="#addPegawaiModal">
-                                                    <i class="fa fa-edit"></i>
-                                                </button>
-                                                <button id="resetPegawai" onclick="resetForm({{$p->id}})"
-                                                    class="btn btn-secondary" data-bs-toggle="modal"
-                                                    data-bs-target="#resetModal">
-                                                    <i class="fa fa-key"></i>
-                                                </button>
-                                                <button id="deletePegawai"
-                                                    onclick="deleteForm('/resource/pegawai/{{$p->id}}')"
-                                                    class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i>
-                                                </button>
+
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#editPegawai-{{$p->id}}">
+                                                    <button class="btn btn-warning">
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                </a>
+
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#deletePegawai-{{ $p->id }}">
+                                                    <button class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i></button>
+                                                </a>
                                             </td>
                                         </tr>
                                         @endforeach
@@ -139,8 +136,11 @@
                 </div>
             </div>
         </div>
+        {{----------------------------------------- E N D  - V I E W -----------------------------------------}}
 
-        {{-- modal --}}
+
+        {{---------------------------------------------- A D D ----------------------------------------------}}
+
         <div class="modal fade" id="addPegawaiModal" aria-labelledby="addPegawaiLabel" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
@@ -150,122 +150,217 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <form action="{{ route('pegawai.createPegawai') }}" method="POST">
+                            @csrf
+                            <div class='mb-3'>
+                                <input type="hidden" name="id" id="id" value="">
+                                <label for="nip" class="form-label">NIP</label>
+                                <input type="number" name="nip" id="nip" class="form-control" autofocus>
+                                <div id="nip-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class='mb-3'>
-                            <input type="hidden" name="id" id="id" value="">
-                            <label for="nip" class="form-label">NIP</label>
-                            <input type="number" name="nip" id="nip" class="form-control" autofocus>
-                            <div id="nip-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama Lengkap</label>
+                                <input type="text" name="nama" id="nama" class="form-control">
+                                <div id="nama-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="nama" class="form-label">Nama Lengkap</label>
-                            <input type="text" name="nama" id="nama" class="form-control">
-                            <div id="nama-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="text" name="email" id="email" class="form-control">
+                                <div id="email-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="text" name="email" id="email" class="form-control">
-                            <div id="email-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                                <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control">
+                                <div id="tgl_lahir-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
-                            <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control">
-                            <div id="tgl_lahir-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="j_k" class="form-label">Jenis Kelamin</label>
+                                <select name="j_k" id="j_k" class="form-control">
+                                    <option value="0" disabled selected>-- Jenis Kelamin --</option>
+                                    <option value="1">
+                                        Laki-laki
+                                    </option>
+                                    <option value="2">
+                                        Perempuan
+                                    </option>
+                                </select>
+                                <div id="j_k-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="j_k" class="form-label">Jenis Kelamin</label>
-                            <select name="j_k" id="j_k" class="form-control">
-                                <option value="0" disabled selected>-- Jenis Kelamin --</option>
-                                <option value="1">
-                                    Laki-laki
-                                </option>
-                                <option value="2">
-                                    Perempuan
-                                </option>
-                            </select>
-                            <div id="j_k-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="no_tlp" class="form-label">Nomor Telepon</label>
+                                <input type="tel" name="no_tlp" id="no_tlp" class="form-control">
+                                <div id="no_tlp-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="no_tlp" class="form-label">Nomor Telepon</label>
-                            <input type="tel" name="no_tlp" id="no_tlp" class="form-control">
-                            <div id="no_tlp-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="jabatan_id" class="form-label">Jabatan</label>
+                                <select name="jabatan_id" id="jabatan_id" class="form-control">
+                                    <option value="0" selected disabled>-- Pilih Jabatan --</option>
+                                    @foreach ($jabatan as $j)
+                                    <option value="{{ $j->id }}">{{ $j->jabatan }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="jabatan_id-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="jabatan_id" class="form-label">Jabatan</label>
-                            <select name="jabatan_id" id="jabatan_id" class="form-control">
-                                <option value="0" selected disabled>-- Pilih Jabatan --</option>
-                                @foreach ($jabatan as $j)
-                                <option value="{{ $j->id }}">{{ $j->jabatan }}</option>
-                                @endforeach
-                            </select>
-                            <div id="jabatan_id-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="cabang_id" class="form-label">Cabang</label>
+                                <select name="cabang_id" id="cabang_id" class="form-control"
+                                    value="{{ old('cabang_id') }}">
+                                    <option value="0" selected disabled>-- Pilih Cabang --</option>
+                                    @foreach ($cabang as $c)
+                                    <option value="{{ $c->id }}">{{ $c->cabang }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="cabang_id-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class="mb-3">
-                            <label for="cabang_id" class="form-label">Cabang</label>
-                            <select name="cabang_id" id="cabang_id" class="form-control" value="{{ old('cabang_id') }}">
-                                <option value="0" selected disabled>-- Pilih Cabang --</option>
-                                @foreach ($cabang as $c)
-                                <option value="{{ $c->id }}">{{ $c->cabang }}</option>
-                                @endforeach
-                            </select>
-                            <div id="cabang_id-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class='mb-3'>
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <textarea class="form-control" name="alamat" id="alamat" rows="3"></textarea>
+                            </div>
 
-                        <div class='mb-3'>
-                            <label for="alamat" class="form-label">Alamat</label>
-                            <textarea class="form-control" name="alamat" id="alamat" rows="3"></textarea>
-                        </div>
+                            <div style="float: right">
+                                <button type="submit" class="btn btn-primary mb-2">Daftar</button>
+                            </div>
 
-                        <div style="float: right">
-                            <button id="save" type="button" class="btn btn-primary mb-2">Daftar</button>
-                        </div>
-
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- end modal --}}
 
-        {{-- reset modal --}}
-        <div class="modal fade" id="resetModal" aria-labelledby="resetLabel" aria-hidden="true">
+        {{------------------------------------------- E N D - A D D  ------------------------------------------}}
+
+
+        {{---------------------------------------- E D I T ----------------------------------------}}
+        
+        @foreach($pegawai as $p)
+        <div class="modal fade" id="editPegawai-{{$p->id}}" aria-labelledby="addPegawaiLabel" aria-hidden="true">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="resetLabel">Ganti Password</h5>
+                        <h5 class="modal-title" id="addPegawaiLabel">Edit Pegawai</h5>
                         <button class="btn-close bg-danger" type="button" data-bs-dismiss="modal" aria-label="Close">
                         </button>
                     </div>
                     <div class="modal-body">
+                        <form action="pegawai/update/{{ $p->id }}" method="POST">
+                            @csrf
+                            <div class='mb-3'>
+                                <label for="nip" class="form-label">NIP</label>
+                                <input type="number" name="nip" id="nip" class="form-control" 
+                                value="{{ old('nip') ?? $p->pegawai->nip }}">
+                                <div id="nip-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div class='mb-3'>
-                            <input type="hidden" name="id" id="idReset" value="">
-                            <label for="password" class="form-label">Password</label>
-                            <input type="password" name="password" id="password" class="form-control" autofocus>
-                            <div id="password-feedback" class="invalid-feedback"></div>
-                        </div>
-                        <div class='mb-3'>
-                            <label for="password_confirmation" class="form-label">Konfirmasi Password</label>
-                            <input type="password" name="password_confirmation" id="password_confirmation"
-                                class="form-control">
-                            <div id="password_confirmation-feedback" class="invalid-feedback"></div>
-                        </div>
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama Lengkap</label>
+                                <input type="text" name="nama" id="nama" class="form-control"
+                                value="{{ old('nama') ?? $p->nama }}">
+                                <div id="nama-feedback" class="invalid-feedback"></div>
+                            </div>
 
-                        <div style="float: right">
-                            <button id="reset" type="button" class="btn btn-primary mb-2">Ubah</button>
-                        </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" id="email" class="form-control"
+                                value="{{ old('email') ?? $p->email }}">
+                                <div id="email-feedback" class="invalid-feedback"></div>
+                            </div>
 
+                            <div class="mb-3">
+                                <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
+                                <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control"
+                                value="{{ old('tgl_lahir') ?? $p->pegawai->tgl_lahir }}">
+                                <div id="tgl_lahir-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="j_k" class="form-label">Jenis Kelamin</label>
+                                <select name="j_k" id="j_k" class="form-control">
+                                    <option value="0" disabled selected>-- Jenis Kelamin --</option>
+                                    <option value="1">
+                                        Laki-laki
+                                    </option>
+                                    <option value="2">
+                                        Perempuan
+                                    </option>
+                                </select>
+                                <div id="j_k-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="no_tlp" class="form-label">Nomor Telepon</label>
+                                <input type="tel" name="no_tlp" id="no_tlp" class="form-control"
+                                value="{{ old('tgl_lahir') ?? $p->pegawai->no_tlp}}">
+                                <div id="no_tlp-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="jabatan_id" class="form-label">Jabatan</label>
+                                <select name="jabatan_id" id="jabatan_id" class="form-control">
+                                    <option value="0" selected disabled>Pilih Jabatan</option>
+                                    @foreach ($jabatan as $j)
+                                    <option value="{{ $j->id }}">{{ $j->jabatan }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="jabatan_id-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="cabang_id" class="form-label">Cabang</label>
+                                <select name="cabang_id" id="cabang_id" class="form-control"
+                                    value="{{ old('cabang_id') }}">
+                                    <option value="0" selected disabled>-- Pilih Cabang --</option>
+                                    @foreach ($cabang as $c)
+                                    <option value="{{ $c->id }}">{{ $c->cabang }}</option>
+                                    @endforeach
+                                </select>
+                                <div id="cabang_id-feedback" class="invalid-feedback"></div>
+                            </div>
+
+                            <div class='mb-3'>
+                                <label for="alamat" class="form-label">Alamat</label>
+                                <textarea class="form-control" name="alamat" id="alamat" rows="3">{{ old('alamat') ?? $p->pegawai->alamat }}
+                                </textarea>
+                            </div>
+
+                            <div style="float: right">
+                                <button type="submit" class="btn btn-primary mb-2">Update</button>
+                            </div>
+
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        {{-- end reset modal --}}
+        @endforeach
+
+        {{----------------------------------- E N D - E D I T  -----------------------------------}}
+
+        
+        {{-------------------------------------- D E L E T E --------------------------------------}}
+        @foreach($pegawai as $p)
+        <div class="modal fade" id="deletePegawai-{{ $p->id }}"
+            aria-labelledby="exampleModalLabel{{ $p->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="padding: 15px">
+                    <div class="modal-body">Hapus data {{$p->nama }} ?</div>
+                    <div style="margin-right: 10px;">
+                        <a class="btn btn-danger" href="pegawai/delete/{{$p->id}}"
+                            style="float: right">Hapus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endforeach
+        {{----------------------------------- E N D - D E L E T E --------------------------------------}}
+        
         <!--end container-->
         {{-- footer --}}
         @include('template.footer')

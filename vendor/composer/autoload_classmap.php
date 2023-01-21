@@ -15,6 +15,7 @@ return array(
     'App\\Http\\Controllers\\MenuAdminController' => $baseDir . '/app/Http/Controllers/MenuAdminController.php',
     'App\\Http\\Controllers\\MenuPegawaiController' => $baseDir . '/app/Http/Controllers/MenuPegawaiController.php',
     'App\\Http\\Controllers\\PegawaiController' => $baseDir . '/app/Http/Controllers/PegawaiController.php',
+    'App\\Http\\Controllers\\PresensiController' => $baseDir . '/app/Http/Controllers/PresensiController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

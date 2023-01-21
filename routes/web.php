@@ -20,8 +20,6 @@ Route::get('/', function () {
     ]);
 })->name('menu.home')->middleware('auth');
 
-    // admin
-    Route::get('admin/pegawai', [MenuAdminController::class, 'pegawai'])->name('admin.pegawai')->middleware('auth');
 
     // auth
     Route::get('login',     [AuthController::class, 'index'])->name('auth.index');
@@ -32,19 +30,27 @@ Route::get('/', function () {
 
 
 Route::group(['middleware' => ['admin:admin']], function(){
-    //Data Admin
-    Route::get('admin',                     [MenuAdminController::class, 'admin'])->name('admin');
-    Route::post('admin',                    [MenuAdminController::class,'createAdmin'])->name('admin.createAdmin');
-    Route::post('admin/update/{id}',        [MenuAdminController::class,'updateAdmin'])->name('admin.updateAdmin');
+    //Route Admin
+    Route::get ('admin',                    [AdminController::class, 'admin'])->name('admin');
+    Route::post('admin',                    [AdminController::class,'createAdmin'])->name('admin.createAdmin');
+    Route::post('admin/update/{id}',        [AdminController::class,'updateAdmin'])->name('admin.updateAdmin');
+    Route::get ('admin/delete/{id}',        [AdminController::class,'deleteAdmin'])->name('admin.deleteAdmin');
 
-    //data absen 
-    Route::get('absensiManual', [DataAbsenController::class, 'index'])->name('absensiManual');
-    Route::get('alpaIzin',      [DataAbsenController::class, 'izin'])->name('alpaIzin');
+    //Route Pegawi
+    Route::get ('pegawai',                  [PegawaiController::class, 'pegawai'])->name('pegawai');
+    Route::post('pegawai',                  [PegawaiController::class, 'createPegawai'])->name('pegawai.createPegawai');
+    Route::post('pegawai/update/{id}',      [PegawaiController::class, 'updatePegawai'])->name('pegawai.updatePegawai');
+    Route::get ('pegawai/delete/{id}',      [PegawaiController::class, 'deletePegawai'])->name('pegawai.deletePegawai');
+    
 
-    //data rekap
-    Route::get('dataAbsensi',   [DataAbsenController::class, 'dataabsensi'])->name('dataAbsensi');
-    Route::get('dataAlpaIzin',  [DataAbsenController::class, 'dataalpaizin'])->name('dataAlpaIzin');
-    Route::get('datatelat',     [DataAbsenController::class, 'datatelat'])->name('datatelat');
+    //Route absen 
+    Route::get('absensiManual',             [DataAbsenController::class, 'absenManual'])->name('absensiManual');
+    Route::get('alpaIzin',                  [DataAbsenController::class, 'izin'])->name('alpaIzin');
+
+    //Route rekap
+    Route::get('dataAbsensi',               [DataAbsenController::class, 'dataabsensi'])->name('dataAbsensi');
+    Route::get('dataAlpaIzin',              [DataAbsenController::class, 'dataalpaizin'])->name('dataAlpaIzin');
+    Route::get('datatelat',                 [DataAbsenController::class, 'datatelat'])->name('datatelat');
 });
 
 

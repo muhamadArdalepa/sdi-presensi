@@ -89,22 +89,20 @@
                                                     class="text-secondary text-xs font-weight-bold">{{$p->role}}</span>
                                             </td>
                                             <td class="align-middle text-center">
+
                                                <a href="#" data-bs-toggle="modal"
                                                     data-bs-target=" #editAdmin-{{$p->id}}">
                                                     <button class="btn btn-warning">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
                                                 </a>
-                                                {{-- <button id="resetAdmin" onclick="resetForm({{$p->id}})"
-                                                    class="btn btn-secondary" data-bs-toggle="modal"
-                                                    data-bs-target="#addAdminModal">
-                                                    <i class="fa fa-key"></i>
-                                                </button>
-                                                <button id="deleteAdmin"
-                                                    onclick="deleteForm('/resource/admin/{{$p->id}}')"
-                                                    class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i>
-                                                </button> --}}
+
+                                                <a href="#" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteAdmin-{{ $p->id }}">
+                                                    <button class="btn btn-danger">
+                                                    <i class="fa fa-trash"></i></button>
+                                                </a>
+                                                
                                             </td>
                                         </tr>
                                         @endforeach
@@ -222,7 +220,25 @@
         @endforeach
 
         {{----------------------------------- E N D - E D I T  -----------------------------------}}
-        {{-- end modal edit data --}}
+
+        {{-------------------------------------- D E L E T E --------------------------------------}}
+        @foreach($admin as $p)
+        <div class="modal fade" id="deleteAdmin-{{ $p->id }}"
+            aria-labelledby="exampleModalLabel{{ $p->id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="padding: 15px">
+                    <div class="modal-body">Hapus data {{$p->nama }} ?</div>
+                    <div style="margin-right: 10px;">
+                        <a class="btn btn-danger" href="admin/delete/{{$p->id}}"
+                            style="float: right">Hapus</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        @endforeach
+        {{----------------------------------- E N D - D E L E T E --------------------------------------}}
+
 
 
         <!--end container-->

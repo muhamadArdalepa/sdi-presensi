@@ -35,6 +35,8 @@
                         </div>
                     </div>
                     @endif
+
+                    @foreach($user as $key => $p)
                     <div class="card-body">
                         <div class="card mb-4">
                             <div class="card-header pb-0 d-flex justify-content-between align-items-center">
@@ -47,11 +49,12 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="nip" class="form-label">Nama pegawai</label>
-                                                <input required type="text" name="nama" id="nama" value="{{ old('nama') }}"
-                                                    class="form-control @error('nama') is-invalid @enderror" autofocus>
-                                                    @error('nama')
-                                                    <div class='text-danger'>{{ $message }}</div>
-                                                    @enderror
+                                                <select name="jabatan_id" id="jabatan_id" class="form-control">
+                                                    <option value="0" selected disabled>-- Pilih Nama Pegawai -- </option>
+                                                    @foreach ($user as $item)
+                                                    <option value="{{$item->id}}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -59,9 +62,6 @@
                                                 <label for="nip" class="form-label">NIP</label>
                                                 <input required type="number" name="nip" id="nip" value="{{ old('nip') }}"
                                                     class="form-control @error('nip') is-invalid @enderror" autofocus>
-                                                    @error('nip')
-                                                    <div class='text-danger'>{{ $message }}</div>
-                                                    @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -69,9 +69,6 @@
                                                 <label for="nip" class="form-label">Tanggal Absen</label>
                                                 <input required type="date" name="tgl_masuk" id="tgl_awal" value="{{ old('tgl_masuk') }}"
                                                     class="form-control @error('tgl_masuk') is-invalid @enderror" autofocus>
-                                                    @error('tgl_masuk')
-                                                    <div class='text-danger'>{{ $message }}</div>
-                                                    @enderror
                                             </div>
                                         </div>
                                       
@@ -81,9 +78,6 @@
                                                 <label for="nip" class="form-label">Jam Absen</label>
                                                 <input required type="time" name="jam_absen" id="jam_absen" value="{{ old('jam_absen') }}"
                                                     class="form-control @error('jam_absen') is-invalid @enderror" autofocus>
-                                                 @error('jam_absen')
-                                                    <div class='text-danger'>{{ $message }}</div>
-                                                 @enderror
                                             </div>
                                         </div>
                                         <div class="col-md-12">
@@ -91,9 +85,6 @@
                                                 <label for="nip" class="form-label">Keterangan</label>
                                                 <textarea required type="text" name="Keterangan" id="Keterangan" value="{{ old('Keterangan') }}"
                                                     class="form-control @error('Keterangan') is-invalid @enderror" autofocus rows="3"> </textarea>
-                                                    @error('Keterangan')
-                                                    <div class='text-danger'>{{ $message }}</div>
-                                                    @enderror
                                             </div>
                                         </div>
                                         <div style="float: right">
@@ -103,6 +94,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endforeach
                     </div>
                     
                 </div>
