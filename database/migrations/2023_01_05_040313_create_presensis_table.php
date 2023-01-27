@@ -16,13 +16,14 @@ class CreatePresensisTable extends Migration
         Schema::create('presensis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
-            ->constrained()
-            ->onUpdate('cascade')
-            ->onDelete('cascade');
+                ->constrained()
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->tinyInteger('status');
             $table->date('tgl_presensi');
             $table->time('jam_masuk');
-            $table->time('jam_pulang');
+            $table->time('jam_pulang')->nullable();
+            $table->timestamps();
         });
     }
 

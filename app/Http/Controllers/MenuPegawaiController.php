@@ -109,12 +109,14 @@ class MenuPegawaiController extends Controller
         }
     }
 
-    public function presensi(){
+    public function presensi()
+    {
         $title = 'Presensi';
         return view('pegawai.presensi', compact('title'));
     }
 
-    public function task(Request $request){
+    public function task(Request $request)
+    {
         $title = 'Task';
         return view('pegawai.task', compact('title'));
     }

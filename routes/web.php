@@ -7,7 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\DataAbsenController;
 use App\Http\Controllers\MenuPegawaiController;
-
+use App\Http\Controllers\PresensiController;
 
 // home
 Route::get('/', function () {
@@ -38,7 +38,7 @@ Route::get('absensiManual', [DataAbsenController::class, 'index'])->name('absens
 Route::get('alpaIzin',      [DataAbsenController::class, 'izin'])->name('alpaIzin');
 
 //data rekap
-Route::get('dataAbsensi',     [DataAbsenController::class,'dataabsensi'])->name('dataAbsensi');
+Route::get('dataAbsensi',     [DataAbsenController::class, 'dataabsensi'])->name('dataAbsensi');
 Route::get('dataAlpaIzin',  [DataAbsenController::class, 'dataalpaizin'])->name('dataAlpaIzin');
 Route::get('datatelat',     [DataAbsenController::class, 'datatelat'])->name('datatelat');
 
@@ -56,3 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
 //Route MenuPegawai
 Route::get('presensi',             [MenuPegawaiController::class, 'presensi'])->name('pegawai.presensi');
 Route::get('task',                 [MenuPegawaiController::class, 'task'])->name('pegawai.task');
+
+
+//Presensi
+Route::post('presensi',             PresensiController::class)->name('presensi.store');

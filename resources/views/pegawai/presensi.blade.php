@@ -11,59 +11,50 @@
         <!-- Navbar -->
         @include('template.navbar')
         {{-- end navbar --}}
-        <style>
-            .container {
-                display: flex;
-                justify-content: space-evenly;
-                align-items: center;
-                margin-top: 100px;
-            }
-            #start-camera {
-                height: 40px;
-            }
-            #click-photo {
-                height: 40px;
-            }
-            .start {
-                display: flex;
-                flex-direction: column;
-                margin: 0 20px;
-                gap: 20px;
-            }
-            .click {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
-            .bt {
-                display: flex;
-                gap: 10px;
-                justify-content: center
-            }
-            video {
-                border-radius: 20px;
-            }
-        </style>
         <div class="container">
-            <div class="start">
-                <video id="video" width="320" height="240" autoplay></video>
-                <div class="bt">
-                <button class="btn" style="background-color: #384464; color:white;" id="start-camera">Start Camera</button>
-                <button class="btn btn-info" id="click-photo">Click Photo</button>
+            <form method="POST" action="{{ route('presensi.store') }}">
+                @csrf
+                <div class="col-md-12">
+                    <div id="my_camera" class="bg-secondary mb-3" style="width:400px; height:300px; "></div>
+                    <button class="btn btn-primary" type=button onClick="startCamera(this)">Start
+                        Camera</button>
+                    <button class="btn btn-success">Presensi</button>
+                    <input type="hidden" name="image" class="image-tag">
                 </div>
-            </div>
-            <div class="click">
-                <canvas id="canvas" width="320" height="240"></canvas>
-                <button class="btn btn-success" id="click-photo">Presensi</button>
-            </div>
-        <script src="script.js"></script>
+
+            </form>
         </div>
         <!--end container-->
         {{-- footer --}}
         @include('template.footer')
         {{-- end footer --}}
     </main>
-     <!--   Core JS Files   -->
-     @include('template.script')
+    <!--   Core JS Files   -->
+    @include('template.script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
+    <script language="JavaScript">
+        function startCamera(btn) {
+            Webcam.set({
+            width: 400,
+            height: 300,
+            image_format: 'jpeg',
+            jpeg_quality: 50
+            });
+    
+            Webcam.attach( '#my_camera' );
+            btn.setAttribute('onclick','take_snapshot(this)');
+            btn.innerHTML = 'Take Picture';
+        }
+        
+        function take_snapshot(btn) {
+            Webcam.snap( function(data_uri) {
+                $(".image-tag").val(data_uri);
+                document.getElementById('my_camera').innerHTML = '<img src="'+data_uri+'" />';
+            } );
+            btn.setAttribute('onclick','startCamera(this)');
+            btn.innerHTML = 'Retake'
+        }
+    </script>
 </body>
+
 </html>
