@@ -12,6 +12,14 @@
         @include('template.navbar')
         {{-- end navbar --}}
         <div class="container">
+
+            <div class="clock-container d-flex ">
+                <h5>{{}}</h5>
+                <h5 class="font-weight-bolder me-3 text-white">
+                    <?php echo date("Y-m-d"); ?>
+                </h5>
+                <h5 class="font-weight-bolder text-white" id="clock" onload="currentTime()"></h5>
+            </div>
             <form method="POST" action="{{ route('presensi.store') }}">
                 @csrf
                 <div class="col-md-12">
@@ -33,6 +41,34 @@
     @include('template.script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <script language="JavaScript">
+        function currentTime() {
+            let date = new Date();
+            let hh = date.getHours();
+            let mm = date.getMinutes();
+            let ss = date.getSeconds();
+            let session = "AM";
+    
+            if (hh == 0) {
+                hh = 12;
+            }
+            if (hh > 12) {
+                hh = hh - 12;
+                session = "PM";
+            }
+    
+            hh = (hh < 10) ? "0" + hh : hh;
+            mm = (mm < 10) ? "0" + mm : mm;
+            ss = (ss < 10) ? "0" + ss : ss;
+    
+            let time = hh + ":" + mm + ":" + ss + " " + session;
+    
+            document.getElementById("clock").innerText = time;
+            let t = setTimeout(function () {
+                currentTime()
+            }, 1000);
+        }
+        currentTime();
+    
         function startCamera(btn) {
             Webcam.set({
             width: 400,
@@ -54,6 +90,8 @@
             btn.setAttribute('onclick','startCamera(this)');
             btn.innerHTML = 'Retake'
         }
+
+        
     </script>
 </body>
 

@@ -24,9 +24,9 @@ class CreatePresensisTable extends Migration
             $table->time('jam_masuk');
             $table->time('jam_pulang')->nullable();
             $table->string('foto_masuk');
-            $table->string('foto_keluar');
-            $table->string('lokasi');
-            $table->string('ket');
+            $table->string('foto_keluar')->nullable();
+            $table->string('lokasi_masuk');
+            $table->string('lokasi_keluar')->nullable();
             $table->timestamps();
         });
     }

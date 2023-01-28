@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PresensiController extends Controller
 {
-    public function __invoke(Request $request)
+    public function masuk(Request $request)
     {
         $img = $request->image;
         $folderPath = "public/presensi/";
@@ -30,14 +30,10 @@ class PresensiController extends Controller
             'status' => 1,
             'tgl_presensi' => date('Y-m-d'),
             'jam_masuk' => date('h:i:s'),
-            'foto_masuk' => $fileName
+            'foto_masuk' => $fileName,
+            'lokasi_masuk' => 'Undefined Location',
         ];
         Presensi::create($data);
-        $detail = new PresensiDetail;
-        $detail->presensi_id = Presensi::latest()->first()->id;
-        $detail->foto = $fileName;
-        $detail->lokasi = 'Undefined Location';
-        $detail->ket = 'Some Keterangan';
-        $detail->save();
+        return redirect(route('pegawai.presensi'));
     }
 }
