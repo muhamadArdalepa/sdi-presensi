@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Pegawai;
 use Illuminate\Http\Request;
@@ -112,7 +113,9 @@ class MenuPegawaiController extends Controller
     public function presensi()
     {
         $title = 'Presensi';
-        return view('pegawai.presensi', compact('title'));
+        $hasAbsent = Auth::user()->pegawai->last_presensi;
+        dd(Carbon::now()->toDateString() . ' ' . $hasAbsent);
+        return view('pegawai.presensi', compact('title'))->with();
     }
 
     public function task(Request $request)
