@@ -30,6 +30,7 @@ class PresensiController extends Controller
             'status' => 1,
             'tgl_presensi' => date('Y-m-d'),
             'jam_masuk' => date('h:i:s'),
+            'foto_masuk' => $fileName
         ];
         Presensi::create($data);
         $detail = new PresensiDetail;
