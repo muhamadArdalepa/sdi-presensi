@@ -14,13 +14,29 @@
         <div class="container">
 
             <div class="clock-container d-flex ">
-                <h5>{{}}</h5>
+                <h5 class="font-weight-bolder me-3 text-white">
+
+                    @if ($no_absent)
+                    ini absen masuk
+                    @else
+                    @if (!$has_pulang)
+                    ini absen pulang
+                    @else
+                    kamu sudah absen hari ini
+                    @endif
+                    @endif
+                </h5>
+
                 <h5 class="font-weight-bolder me-3 text-white">
                     <?php echo date("Y-m-d"); ?>
                 </h5>
                 <h5 class="font-weight-bolder text-white" id="clock" onload="currentTime()"></h5>
             </div>
-            <form method="POST" action="{{ route('presensi.store') }}">
+            @if ($no_absent || !$has_pulang)
+
+            <form method="POST"
+                action="{{ $has_pulang ? route('presensi.masuk'):route('presensi.pulang',$presensi_id) }}">
+                {{ method_field($has_pulang ? 'POST':'PUT') }}
                 @csrf
                 <div class="col-md-12">
                     <div id="my_camera" class="bg-secondary mb-3" style="width:400px; height:300px; "></div>
@@ -31,6 +47,8 @@
                 </div>
 
             </form>
+            @endif
+
         </div>
         <!--end container-->
         {{-- footer --}}

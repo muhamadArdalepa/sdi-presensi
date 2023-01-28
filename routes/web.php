@@ -59,4 +59,5 @@ Route::get('task',                 [MenuPegawaiController::class, 'task'])->name
 
 
 //Presensi
-Route::post('masuk',             [PresensiController::class, 'masuk'])->name('presensi.store');
+Route::post('masuk',             [PresensiController::class, 'masuk'])->name('presensi.masuk');
+Route::put('pulang/{presensi}',             [PresensiController::class, 'pulang'])->name('presensi.pulang');

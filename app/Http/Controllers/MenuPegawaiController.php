@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Pegawai;
+use App\Models\Presensi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -113,9 +114,12 @@ class MenuPegawaiController extends Controller
     public function presensi()
     {
         $title = 'Presensi';
-        $hasAbsent = Auth::user()->pegawai->last_presensi;
-        dd(Carbon::now()->toDateString() . ' ' . $hasAbsent);
-        return view('pegawai.presensi', compact('title'))->with();
+        $today = Carbon::now()->toDateString();
+        $last_presensi = Auth::user()->pegawai->last_presensi ?? '0000-00-00';
+        $no_absent =  Carbon::parse($last_presensi)->timestamp < Carbon::parse($today)->timestamp;
+        $has_pulang = Presensi::where('user_id', Auth::user()->id)->where('tgl_presensi', $today)->first() == null ? true : false;
+        $presensi_id = Presensi::where('user_id', Auth::user()->id)->first()->id ?? 0;
+        return view('pegawai.presensi', compact('title', 'no_absent', 'has_pulang', 'presensi_id'));
     }
 
     public function task(Request $request)
