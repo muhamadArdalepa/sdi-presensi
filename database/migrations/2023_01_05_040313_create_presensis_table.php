@@ -23,6 +23,10 @@ class CreatePresensisTable extends Migration
             $table->date('tgl_presensi');
             $table->time('jam_masuk');
             $table->time('jam_pulang')->nullable();
+            $table->string('foto_masuk');
+            $table->string('foto_keluar');
+            $table->string('lokasi');
+            $table->string('ket');
             $table->timestamps();
         });
     }
