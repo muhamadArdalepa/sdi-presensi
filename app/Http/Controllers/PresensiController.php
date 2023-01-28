@@ -39,5 +39,29 @@ class PresensiController extends Controller
         $detail->lokasi = 'Undefined Location';
         $detail->ket = 'Some Keterangan';
         $detail->save();
+
+        session()->flash('pesan', "Presensi berhasil");
+    return redirect(route('pegawai.presensi'));
     }
+    
+
+    // public function store(Request $request)
+    // {
+    //     $validateData = $request->validate([
+    //         'status' => '',
+    //         'tgl_presensi' => '',
+    //         'jam_masuk' => '',
+      
+    //     ]);
+
+    //     Presensi::create($validateData);
+    //     return redirect()->route('presensi.index');
+    // }
+
+    // public function show($presensi)
+    // {
+    //     $result = Presensi::findOrFail($presensi);
+    //     return view('show',['presensi' => $result]);
+    // }
+
 }

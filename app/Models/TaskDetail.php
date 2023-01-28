@@ -13,4 +13,5 @@ class TaskDetail extends Model
 
         return $this->belongsTo(Task::class)->withTimestamps();
     }
+    
 }

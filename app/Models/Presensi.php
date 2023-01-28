@@ -19,4 +19,8 @@ class Presensi extends Model
     {
         return $this->hasOne(PresensiDetail::class);
     }
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

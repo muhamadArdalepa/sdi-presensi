@@ -14,17 +14,6 @@
 
         <!--start container-->
         <div class="container-fluid py-4">
-            <div class="col-md-12">
-                @if (session()->has('msg'))
-                <div class="alert alert-success" style="color:white;">
-                    {{ session()->get('msg') }}
-                    <div style="float: right">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                </div>
-                @endif
-            </div>
-
             <div class="col-12">
                 @if(session()->has('pesan'))
                 <div class="alert alert-success" style="color:white;">
@@ -123,51 +112,13 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="example-text-input" class="form-control-label">Alamat</label>
-                                            <textarea class="form-control" name="alamat" id="alamat" cols="30"
-                                                rows="10">{{ Auth::user()->pegawai->alamat }}</textarea>
+                                            <textarea class="form-control" name="alamat" id="alamat" 
+                                                rows="3">{{ Auth::user()->pegawai->alamat }}</textarea>
                                             <span class="text-danger error-text alamat_error"></span>
                                         </div>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary mb-2">Update</button>
-                            </div>
-                            <div class="body">
-                                <form class="form-horizontal" action="{{ route('ChangePw') }}" method="POST"
-                                    id="changePw">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="passwordLama" class="form-label">Password Lama</label>
-                                        <input type="password" name="oldpassword" id="inputPass"
-                                            placeholder="Masukkan Password Lama"
-                                            class="form-control @error('password') is-invalid @enderror">
-                                        @error('password')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                        <span class="text-danger error-text oldpassword_error"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="passwordBaru" class="form-label">Password Baru</label>
-                                        <input type="password" name="newpassword" id="inputNew"
-                                            placeholder="Masukkan Password Baru"
-                                            class="form-control @error('passwordBaru') is-invalid @enderror">
-                                        @error('passwordBaru')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                        <span class="text-danger error-text newpassword_error"></span>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="kPasswordBaru" class="form-label">Konfirmasi Password Baru</label>
-                                        <input type="password" name="knewpassword" id="inputKnew"
-                                            placeholder="Masukkan Konfirmasi Password Baru"
-                                            class="form-control @error('kPasswordBaru') is-invalid @enderror">
-                                        @error('kPasswordBaru')
-                                        <div class="text-danger">{{ $message }}</div>
-                                        @enderror
-                                    </div>
-                                    <div style="float: right">
-                                        <button type="submit" class="btn btn-primary mb-2">Update Password</button>
-                                    </div>
-                                </form>
                             </div>
                         </div>
                     </form>

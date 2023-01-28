@@ -11,18 +11,35 @@
         <!-- Navbar -->
         @include('template.navbar')
         {{-- end navbar --}}
-        <div class="container">
-            <form method="POST" action="{{ route('presensi.store') }}">
-                @csrf
-                <div class="col-md-12">
-                    <div id="my_camera" class="bg-secondary mb-3" style="width:400px; height:300px; "></div>
-                    <button class="btn btn-primary" type=button onClick="startCamera(this)">Start
-                        Camera</button>
-                    <button class="btn btn-success">Presensi</button>
-                    <input type="hidden" name="image" class="image-tag">
+        <div class="container-fluid py-4">
+            <div class="col-12">
+                @if(session()->has('pesan'))
+                <div class="alert alert-success" style="color:white;">
+                    {{ session()->get('pesan')}}
+                    <div style="float: right">
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
                 </div>
-
-            </form>
+                @endif
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('presensi.store') }}">
+                                @csrf
+                                <div class="col-md-12">
+                                    <div id="my_camera" class="bg-secondary mb-3" style="width:400px; height:300px;"></div>
+                                    <button class="btn btn-primary" type=button onClick="startCamera(this)">Start
+                                        Camera</button>
+                                    <button class="btn btn-success">Presensi</button>
+                                    <input type="hidden" name="image" class="image-tag">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--end container-->
         {{-- footer --}}

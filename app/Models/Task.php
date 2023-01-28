@@ -15,7 +15,7 @@ class Task extends Model
 
     }
 
-    public function task_detail(){
+    public function task_details(){
 
         return $this->hasOne(TaskDetail::class)->withTimestamps();
     }
