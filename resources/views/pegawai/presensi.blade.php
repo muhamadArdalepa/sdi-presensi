@@ -12,42 +12,65 @@
         @include('template.navbar')
         {{-- end navbar --}}
         <div class="container">
-
-            <div class="clock-container d-flex ">
-                <h5 class="font-weight-bolder me-3 text-white">
-
-                    @if ($no_absent)
-                    ini absen masuk
-                    @else
-                    @if (!$has_pulang)
-                    ini absen pulang
-                    @else
-                    kamu sudah absen hari ini
-                    @endif
-                    @endif
-                </h5>
-
-                <h5 class="font-weight-bolder me-3 text-white">
-                    <?php echo date("Y-m-d"); ?>
-                </h5>
-                <h5 class="font-weight-bolder text-white" id="clock" onload="currentTime()"></h5>
-            </div>
-            @if ($no_absent || !$has_pulang)
-
-            <form method="POST"
-                action="{{ $has_pulang ? route('presensi.masuk'):route('presensi.pulang',$presensi_id) }}">
-                {{ method_field($has_pulang ? 'POST':'PUT') }}
+            <form method="POST" action="
+            @if(!isset($presensi))
+            {{ route('presensi.masuk')}}
+            @else
+            {{ route('presensi.pulang',$presensi->id)}}
+            @endif
+            ">
                 @csrf
-                <div class="col-md-12">
-                    <div id="my_camera" class="bg-secondary mb-3" style="width:400px; height:300px; "></div>
-                    <button class="btn btn-primary" type=button onClick="startCamera(this)">Start
-                        Camera</button>
-                    <button class="btn btn-success">Presensi</button>
+                <div class="p-5 bg-white rounded-3">
+
+                    <div class="clock-container d-flex justify-content-center">
+                        <h5 class="font-weight-bolder me-3">
+
+                            @if(!isset($presensi))
+                            Absen Masuk
+                            @else
+                            @if(!isset(($presensi->jam_pulang)))
+                            Absen Keluar
+                            @else
+                            Kamu Sudah Absen Hari Ini
+                            @endif
+                            @endif
+                        </h5>
+
+                        <h5 class="font-weight-bolder me-3">
+                            <?php echo date("Y-m-d"); ?>
+                        </h5>
+                        <h5 class="font-weight-bolder" id="clock" onload="currentTime()"></h5>
+                    </div>
+
+                    @if(!isset(($presensi->jam_pulang)))
+
+                    @if(isset($presensi)){{ method_field('PUT') }}@endif
                     <input type="hidden" name="image" class="image-tag">
+                    <div class="text-center">
+                        <div id="my_camera" class="bg-secondary mb-3 d-inline-block" style="height:300px; width: 400px">
+                        </div>
+                        <br />
+                        <div class="d-inline-flex justify-content-between align-items-center col-md-6">
+                            <div class="">
+
+                                <button class="btn btn-primary" type=button onClick="startCamera(this)">Start
+                                    Camera</button>
+                                <button id="btn-presensi" class="btn btn-success">Presensi</button>
+                            </div>
+                            <div class="form-check d-inline-block">
+                                <input class="form-check-input" type="checkbox" value="izin" name="izin" id="izin">
+                                <label class="form-check-label" for="izin">
+                                    Izin
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </form>
             @endif
+
 
         </div>
         <!--end container-->
@@ -59,6 +82,8 @@
     @include('template.script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.25/webcam.min.js"></script>
     <script language="JavaScript">
+        $('#btn-presensi').hide();
+
         function currentTime() {
             let date = new Date();
             let hh = date.getHours();
@@ -98,6 +123,7 @@
             Webcam.attach( '#my_camera' );
             btn.setAttribute('onclick','take_snapshot(this)');
             btn.innerHTML = 'Take Picture';
+            $('#btn-presensi').hide();
         }
         
         function take_snapshot(btn) {
@@ -107,6 +133,7 @@
             } );
             btn.setAttribute('onclick','startCamera(this)');
             btn.innerHTML = 'Retake'
+            $('#btn-presensi').show();
         }
 
         

@@ -19,7 +19,7 @@ class CreatePresensisTable extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->tinyInteger('status');
+            $table->enum('status', ['Hadir', 'Izin', 'Telat']);
             $table->date('tgl_presensi');
             $table->time('jam_masuk');
             $table->time('jam_pulang')->nullable();
@@ -27,6 +27,7 @@ class CreatePresensisTable extends Migration
             $table->string('foto_pulang')->nullable();
             $table->string('lokasi_masuk');
             $table->string('lokasi_pulang')->nullable();
+            $table->string('ket')->nullable();
             $table->timestamps();
         });
     }

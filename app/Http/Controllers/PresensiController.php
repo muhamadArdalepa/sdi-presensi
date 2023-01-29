@@ -26,17 +26,21 @@ class PresensiController extends Controller
 
         $file = $folderPath . $fileName;
         Storage::put($file, $image_base64);
-
+        $status = "Hadir";
+        $ts_now = Carbon::now()->timestamp;
+        $ts_masuk = Carbon::createFromFormat('H:i:s', '08:00:00')->timestamp;
+        if ($ts_masuk < $ts_now) {
+            dd("kamu telat");
+        }
         $data = [
             'user_id' => Auth::user()->id,
-            'status' => 1,
+            // 'status' => ,
             'tgl_presensi' => date('Y-m-d'),
             'jam_masuk' => date('h:i:s'),
             'foto_masuk' => $fileName,
             'lokasi_masuk' => 'Undefined Location',
         ];
         Presensi::create($data);
-        Pegawai::where('user_id', Auth::user()->id)->update(['last_presensi' => Carbon::now()->toDateString()]);
         return redirect(route('pegawai.presensi'));
     }
     public function pulang(Request $request, Presensi $presensi)
@@ -60,7 +64,6 @@ class PresensiController extends Controller
             'foto_pulang' => $fileName,
             'lokasi_pulang' => 'Undefined Location',
         ]);
-        Pegawai::where('user_id', Auth::user()->id)->update(['last_presensi' => Carbon::now()->toDateString()]);
         return redirect(route('pegawai.presensi'));
     }
 }

@@ -32,7 +32,6 @@ class CreatePegawaisTable extends Migration
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
-            $table->date('last_presensi')->nullable();
             $table->timestamps();
         });
     }
