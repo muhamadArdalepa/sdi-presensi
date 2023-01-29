@@ -116,7 +116,8 @@ class MenuPegawaiController extends Controller
         $title = 'Presensi';
         $today = Carbon::now()->toDateString();
         $presensi = Presensi::where('user_id', Auth::user()->id)->where('tgl_presensi', $today)->first();
-        return view('pegawai.presensi', compact('title', 'presensi'));
+        $status = $presensi->status ?? "status";
+        return view('pegawai.presensi', compact('title', 'presensi', 'status'));
     }
 
     public function task(Request $request)

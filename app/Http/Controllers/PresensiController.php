@@ -30,15 +30,19 @@ class PresensiController extends Controller
         $ts_now = Carbon::now()->timestamp;
         $ts_masuk = Carbon::createFromFormat('H:i:s', '08:00:00')->timestamp;
         if ($ts_masuk < $ts_now) {
-            dd("kamu telat");
+            $status = "Telat";
+        }
+        if ($request->izin) {
+            $status = "Izin";
         }
         $data = [
             'user_id' => Auth::user()->id,
-            // 'status' => ,
+            'status' => $status,
             'tgl_presensi' => date('Y-m-d'),
             'jam_masuk' => date('h:i:s'),
             'foto_masuk' => $fileName,
-            'lokasi_masuk' => 'Undefined Location',
+            'lokasi_masuk' => $request->lokasi,
+            'ket' => $request->ket,
         ];
         Presensi::create($data);
         return redirect(route('pegawai.presensi'));
@@ -62,7 +66,7 @@ class PresensiController extends Controller
         Presensi::where('id', $presensi->id)->update([
             'jam_pulang' => date('h:i:s'),
             'foto_pulang' => $fileName,
-            'lokasi_pulang' => 'Undefined Location',
+            'lokasi_pulang' => $request->lokasi,
         ]);
         return redirect(route('pegawai.presensi'));
     }
